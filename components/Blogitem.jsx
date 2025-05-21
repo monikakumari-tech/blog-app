@@ -1,4 +1,4 @@
-// "use client";
+"use client";
 // import { assets, blog_data } from "@/assets/assets";
 // import Image from "next/image";
 // import { useEffect, useState } from "react";
