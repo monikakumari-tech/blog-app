@@ -66,7 +66,7 @@ import Link from "next/link";
 const Blogitem = ({title, description, image, category, id}) => {
  
   return (
-    <div className="max-w-[330px] sm:max-w-[300px] bg-white border border-black hover:shadow-[-7px_7px_0px_#0000000] my-5 rounded-sm pb-5 flex flex-col gap-3 overflow-hidden">
+    <div className="m-auto max-w-[330px] sm:max-w-[300px] bg-white border border-black hover:shadow-[-7px_7px_0px_#0000000] my-5 rounded-sm pb-5 flex flex-col gap-3 overflow-hidden">
       <Link href={`/blogs/${id}`}>
       <Image
         src={image}
