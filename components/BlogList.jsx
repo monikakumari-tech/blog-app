@@ -1,24 +1,47 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { blog_data } from "@/assets/assets";
 import Blogitem from "./Blogitem";
+import axios from "axios";
 
 const BlogList = () => {
-    
-  const [currentpage, setCurrentPage] = useState(1);
+const [blog, setBlog] = useState([]);
+const [filteredData, setFilteredData] = useState([]);
+const [currentpage, setCurrentPage] = useState(1);
+const [menu, setMenu] = useState("All");
  
-  const [menu, setMenu] = useState("All");
+
  const trend = ["All", "Technology", "Startup", "Lifestyle"];
-
   const cardPerPage = 5;
-  const startIndex = (currentpage - 1) * cardPerPage;
-  const endIndex = startIndex + cardPerPage;
-  const filterData = blog_data.filter((item) =>
-    menu == "All" ? item : item.category == menu
-  );
+ 
 
-  const totalPage = Math.ceil(filterData.length / cardPerPage);
-  const data = filterData.slice(startIndex, endIndex);
+  const fetchBlog = async ()=>{
+    try{
+    const response = await axios.get("/api/blog")
+    console.log(response.data.blogs)
+    setBlog(response.data.blogs)
+    }catch(err){
+      confirm.log(err)
+    }
+  }
+  useEffect(()=>{
+     fetchBlog()
+  },[])
+
+  useEffect(() => {
+  if (blog.length > 0) {
+    const filtered = blog.filter((item) =>
+      menu === "All" ? item: item.category === menu
+    );
+    setFilteredData(filtered);
+    console.log("Filtered blogs:", filtered);
+  }
+}, [blog, menu]);
+
+ const startIndex = (currentpage - 1) * cardPerPage;
+  const endIndex = startIndex + cardPerPage;
+  const totalPage = Math.ceil(filteredData.length / cardPerPage);
+  const data = filteredData.slice(startIndex, endIndex);
 
   return (
     <div>
@@ -50,7 +73,7 @@ const BlogList = () => {
         {/* filter card data */}
       <div className="flex flex-wrap justify-around gap-1 gap-y-10 mb-16 xl:mx-24 ">
         {
-          // blog_data.filter((item)=>menu=="All" ? item : item.category==menu)
+          
           data.map((item, index) => {
             return (
               <Blogitem
@@ -59,16 +82,16 @@ const BlogList = () => {
                 title={item.title}
                 description={item.description}
                 category={item.category}
-                id={item.id}
+                id={item._id}
               />
             );
           })
         }
-      </div>
+      </div> 
  {/* ******************************** */}
       {/* pagination button */}
       <div className="flex gap-2 justify-center my-5 items-center">
-        <button
+         <button
           className="bg-purple-500 text-white px-4 py-2"
           onClick={() => setCurrentPage((pre) => Math.max(pre - 1, 1))}
         >
@@ -82,7 +105,7 @@ const BlogList = () => {
           onClick={() => setCurrentPage((pre) => Math.min(pre + 1, totalPage))}
         >
           Next
-        </button>
+        </button> 
       </div>
  {/* ******************************** */}
     </div>

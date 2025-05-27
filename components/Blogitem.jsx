@@ -78,8 +78,8 @@ const Blogitem = ({title, description, image, category, id}) => {
       </Link>
       <p className="px-5">{category}</p>
       <div className="flex flex-col gap-3 px-5">
-        <h5>title</h5>
-        <p>description</p>
+        <h5>{title}</h5>
+        <p>{description}</p>
         
         <Link href={`/blogs/${id}`} className="flex items-center gap-1">Read more <Image src={assets.arrow} width={12} alt="arrow"/></Link>
       </div>
