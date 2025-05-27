@@ -71,7 +71,8 @@ const [menu, setMenu] = useState("All");
         </div> */}
  {/* ******************************** */}
         {/* filter card data */}
-      <div className="flex flex-wrap justify-around gap-1 gap-y-10 mb-16 xl:mx-24 ">
+        <div className="">
+      <div className="  m-10 grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {
           
           data.map((item, index) => {
@@ -88,6 +89,7 @@ const [menu, setMenu] = useState("All");
           })
         }
       </div> 
+      </div>
  {/* ******************************** */}
       {/* pagination button */}
       <div className="flex gap-2 justify-center my-5 items-center">
